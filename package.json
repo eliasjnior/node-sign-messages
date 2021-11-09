@@ -1,0 +1,18 @@
+{
+  "name": "ssh-keys",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "start:generate": "ts-node src/generate.ts",
+    "start:validate": "ts-node src/validate.ts"
+  },
+  "devDependencies": {
+    "@types/node": "^16.11.6",
+    "ts-node": "^10.4.0",
+    "typescript": "^4.4.4"
+  },
+  "dependencies": {
+    "jose": "^4.1.5"
+  }
+}
