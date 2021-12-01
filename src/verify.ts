@@ -39,32 +39,36 @@ const verifyMessage = async ({
 }
 
 const bootstrap = async () => {
-  const {publicKey, signature, message, encoding} = await inquirer.prompt([
-    {
-      type: 'input',
-      name: 'publicKey',
-      message: 'Public key',
-    },
-    {
-      type: 'input',
-      name: 'signature',
-      message: 'Signature',
-    },
-    {
-      type: 'input',
-      name: 'message',
-      message: 'Message',
-    },
-    {
-      type: 'list',
-      name: 'encoding',
-      message: 'Encoding',
-      default: 'base64',
-      choices: ['base64', 'hex']
-    }
-  ])
+  try {
+    const {publicKey, signature, message, encoding} = await inquirer.prompt([
+      {
+        type: 'input',
+        name: 'publicKey',
+        message: 'Public key',
+      },
+      {
+        type: 'input',
+        name: 'signature',
+        message: 'Signature',
+      },
+      {
+        type: 'input',
+        name: 'message',
+        message: 'Message',
+      },
+      {
+        type: 'list',
+        name: 'encoding',
+        message: 'Encoding',
+        default: 'base64',
+        choices: ['base64', 'hex']
+      }
+    ])
 
-  await verifyMessage({publicKey, signature, message, encoding})
+    await verifyMessage({publicKey, signature, message, encoding})
+  } catch(error){
+    console.log('There was an error while verifying signature.')
+  }
 }
 
-bootstrap()
+export default bootstrap

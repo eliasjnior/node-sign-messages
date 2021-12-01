@@ -32,27 +32,31 @@ const signMessage = async ({privateKey, message, encoding}: SignMessageDto) => {
 }
 
 const bootstrap = async () => {
-  const {privateKey, message, encoding} = await inquirer.prompt([
-    {
-      type: 'input',
-      name: 'privateKey',
-      message: 'Private key',
-    },
-    {
-      type: 'input',
-      name: 'message',
-      message: 'Message',
-    },
-    {
-      type: 'list',
-      name: 'encoding',
-      message: 'Encoding',
-      default: 'base64',
-      choices: ['base64', 'hex']
-    }
-  ])
+  try {
+    const {privateKey, message, encoding} = await inquirer.prompt([
+      {
+        type: 'input',
+        name: 'privateKey',
+        message: 'Private key',
+      },
+      {
+        type: 'input',
+        name: 'message',
+        message: 'Message',
+      },
+      {
+        type: 'list',
+        name: 'encoding',
+        message: 'Encoding',
+        default: 'base64',
+        choices: ['base64', 'hex']
+      }
+    ])
 
-  await signMessage({privateKey, message, encoding})
+    await signMessage({privateKey, message, encoding})
+  } catch(error){
+    console.log('There was an error while signing message.')
+  }
 }
 
-bootstrap()
+export default bootstrap

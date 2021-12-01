@@ -29,17 +29,21 @@ const generate = async (encoding: 'base64' | 'hex') => {
 }
 
 const bootstrap = async () => {
-  const {encoding} = await inquirer.prompt([
-    {
-      type: 'list',
-      name: 'encoding',
-      message: 'Encoding',
-      default: 'base64',
-      choices: ['base64', 'hex']
-    }
-  ])
+  try {
+    const {encoding} = await inquirer.prompt([
+      {
+        type: 'list',
+        name: 'encoding',
+        message: 'Encoding',
+        default: 'base64',
+        choices: ['base64', 'hex']
+      }
+    ])
 
-  await generate(encoding)
+    await generate(encoding)
+  } catch(error){
+    console.log('There was an error while generating keys.')
+  }
 }
 
-bootstrap()
+export default bootstrap

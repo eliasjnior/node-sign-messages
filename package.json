@@ -6,9 +6,7 @@
   "type": "module",
   "scripts": {
     "build": "tsc",
-    "generate": "node build/generate",
-    "verify": "node build/verify",
-    "sign": "node build/sign"
+    "start": "node --experimental-modules --es-module-specifier-resolution=node build/index.js"
   },
   "devDependencies": {
     "@types/cli-table": "^0.3.0",
