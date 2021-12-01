@@ -1,5 +1,5 @@
 {
-  "name": "ssh-keys",
+  "name": "node-sign-messages",
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
