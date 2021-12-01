@@ -1,37 +1,31 @@
 # SSH Keys
 
-## Generate SSH keys
+Generate a key pair ED25519 to sign and verify messages in Node.
 
-```
-ssh-keygen -o -a 100 -t ed25519 -f src/config/key -C "<YOUR COMMENT>"
-```
+## Build
 
-## Get public key
-
-```
-ssh-keygen -y -f src/config/key > src/config/key.pub
+```bash
+yarn install
+yarn build
 ```
 
-## Scripts
+## Generate keys
+You will be prompted to choose the encoding (base64 or hex).
 
-### Generate
-
-```
-yarn start:generate "YOUR MESSAGE"
-```
-
-The output will be something like this:
-
-```
-private key bs58: 2mWNaEKEJrtB1rEvHsFx8aA4ypdQwBcw7YkL8AbpUcn5MP5tGRBiqRiCErD8WqiH6x
-public key hex: GfHq2tTVk9z4eXgySufQKzi5fiJugciH5EkPjRCdLFSVmnVGLiA3V2dNvcFk
-signature bs58: 2vXnDHccfcSDqZ6ny7tFP1DU1oMxZn18tmzMba4o93BsojnjkihPVKugC3qYGbtx8JRonsk1SgvtAK36qUCa2v8a
+```bash
+yarn generate
 ```
 
-### Validate
+## Sign message
+You will be prompted to choose the encoding (base64 or hex). You will also need to input the message to be signed and the private key that was generated with the same encoding.
 
-`yarn start:validate PUBLIC_KEY SIGNATURE YOUR_MESSAGE`
-
+```bash
+yarn sign
 ```
-yarn start:validate GfHq2tTVk9z4eXgySufQKzi5fiJugciH5EkPjRCdLFSVmnVGLiA3V2dNvcFk 2vXnDHccfcSDqZ6ny7tFP1DU1oMxZn18tmzMba4o93BsojnjkihPVKugC3qYGbtx8JRonsk1SgvtAK36qUCa2v8a "YOUR MESSAGE"
+
+## Verify signature
+You will be prompted to choose the encoding (base64 or hex). You will also need to input the message, signature and the public key that was generated with the same encoding.
+
+```bash
+yarn verify
 ```

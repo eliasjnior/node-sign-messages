@@ -3,16 +3,22 @@
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
+  "type": "module",
   "scripts": {
-    "start:generate": "ts-node src/generate.ts",
-    "start:validate": "ts-node src/validate.ts"
+    "build": "tsc",
+    "generate": "node build/generate",
+    "verify": "node build/verify",
+    "sign": "node build/sign"
   },
   "devDependencies": {
+    "@types/cli-table": "^0.3.0",
+    "@types/inquirer": "^8.1.3",
     "@types/node": "^16.11.6",
-    "ts-node": "^10.4.0",
     "typescript": "^4.4.4"
   },
   "dependencies": {
-    "jose": "^4.1.5"
+    "chalk": "^5.0.0",
+    "cli-table": "^0.3.9",
+    "inquirer": "^8.2.0"
   }
 }

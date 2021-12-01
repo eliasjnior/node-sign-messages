@@ -1,6 +1,8 @@
-import { sign, generateKeyPairSync } from 'crypto'
+import { generateKeyPairSync } from 'crypto'
+import Table from 'cli-table';
+import inquirer from 'inquirer';
 
-const generate = async (message: string) => {
+const generate = async (encoding: 'base64' | 'hex') => {
   const { publicKey, privateKey } = generateKeyPairSync('ed25519');
 
   const privateKeyExport = privateKey.export({
@@ -13,20 +15,31 @@ const generate = async (message: string) => {
     type: 'spki'
   })
 
-  const privateKeyBs58 = privateKeyExport.toString('hex')
-  const publicKeyBs58 = publicKeyExport.toString('hex')
-  
-  const signature = sign(
-    null, 
-    Buffer.from(message), 
-    privateKey
-  )
-  
-  console.log('private key:', privateKeyBs58)
-  console.log('public key hex:', publicKeyBs58)
-  console.log('signature:', signature.toString('hex'))
+  const privateKeyOutput = privateKeyExport.toString(encoding)
+  const publicKeyOutput = publicKeyExport.toString(encoding)
 
-  return signature
+  const table = new Table({
+    head: ['Type', 'Value'],
+  })
+  
+  table.push(['Private key', privateKeyOutput])
+  table.push(['Public key', publicKeyOutput])
+  
+  console.log(table.toString())
 }
 
-generate(process.argv[2])
+const bootstrap = async () => {
+  const {encoding} = await inquirer.prompt([
+    {
+      type: 'list',
+      name: 'encoding',
+      message: 'Encoding',
+      default: 'base64',
+      choices: ['base64', 'hex']
+    }
+  ])
+
+  await generate(encoding)
+}
+
+bootstrap()
