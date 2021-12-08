@@ -25,7 +25,7 @@ const signMessage = async ({privateKey, message, encoding}: SignMessageDto) => {
   const table = new Table()
 
   table.push(['Private key', privateKey])
-  table.push(['Message', privateKey])
+  table.push(['Message', message])
   table.push(['Signature', signature.toString(encoding)])
 
   console.log(table.toString())
